@@ -6,6 +6,7 @@
     "antd": "3.0.0-beta.5",
     "classnames": "^2.2.5",
     "dva": "^2.0.4",
+    "history": "^4.7.2",
     "less": "^2.7.3",
     "lodash": "^4.17.4",
     "lodash-decorators": "^4.5.0",

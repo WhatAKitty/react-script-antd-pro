@@ -3,7 +3,8 @@ import 'moment/locale/zh-cn';
 import models from './models';
 import './polyfill';
 import './g2';
-import { browserHistory } from 'dva/router';
+import createHistory from 'history/createBrowserHistory';
+import { message } from 'antd';
 import './index.less';
 
 import router from './router';
@@ -11,9 +12,14 @@ import FetchMock from 'react-fetch-mock';
 
 window.fetch = new FetchMock(require('./__mocks__')).fetch;
 
+const ERROR_MSG_DURATION = 3; // 3 秒
+
 // 1. Initialize
 const app = dva({
-  history: browserHistory,
+  history: createHistory(),
+  onError(e) {
+    message.error(e.message, ERROR_MSG_DURATION);
+  },
 });
 
 // 2. Plugins
