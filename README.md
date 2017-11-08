@@ -11,11 +11,11 @@ Prefer react-script than antd-build or dva-cli
 
 ### Usage
 
-```
+```shell
 $ git clone https://github.com/WhatAKitty/react-script-antd-pro.git
 $ cd react-script-antd-pro
 $ yarn
-$ yarn start         # visit http://localhost:8000
+$ yarn start         # visit http://localhost:3000
 ```
 
 Some infos about antd-pro, please visit: https://github.com/ant-design/ant-design-pro
