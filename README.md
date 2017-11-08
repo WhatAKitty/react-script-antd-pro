@@ -18,4 +18,4 @@ $ yarn
 $ yarn start         # visit http://localhost:8000
 ```
 
-Some infos about antd-pro, please visit: https://github.com/WhatAKitty/ant-design-pro
+Some infos about antd-pro, please visit: https://github.com/ant-design/ant-design-pro
