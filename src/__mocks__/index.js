@@ -25,8 +25,8 @@ export default {
     //   notifyCount: 12,
     // },
     return {
-      name: 'momo.zxy',
-      avatar: imgMap.user,
+      name: 'Serati Ma',
+      avatar: 'https://gw.alipayobjects.com/zos/rmsportal/dRFVcIqZOYPcSNrlJsqQ.png',
       userid: '00000001',
       notifyCount: 12,
     }
