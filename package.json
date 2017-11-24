@@ -1,11 +1,11 @@
 {
   "name": "react-script-antd-pro",
-  "version": "0.2.3-rc.0",
+  "version": "0.3.0",
   "private": true,
   "dependencies": {
     "antd": "3.0.0-beta.5",
     "classnames": "^2.2.5",
-    "dva": "2.1.0-beta.3",
+    "dva": "^2.1.0",
     "history": "^4.7.2",
     "less": "^2.7.3",
     "lodash": "^4.17.4",
@@ -21,7 +21,9 @@
     "react-document-title": "^2.0.3",
     "react-dom": "^16.0.0",
     "react-fittext": "^1.0.0",
-    "react-scripts": "1.0.17"
+    "react-scripts": "1.0.17",
+    "redbox-react": "^1.5.0",
+    "rollbar": "^2.3.1"
   },
   "scripts": {
     "start": "react-app-rewired start",

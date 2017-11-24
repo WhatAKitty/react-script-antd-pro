@@ -1,6 +1,5 @@
 import dva from 'dva';
 import 'moment/locale/zh-cn';
-import './polyfill';
 import './g2';
 import createHistory from 'history/createBrowserHistory';
 import { message } from 'antd';

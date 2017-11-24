@@ -55,17 +55,26 @@ export default class Ellipsis extends Component {
   computeLine = () => {
     const { lines } = this.props;
     if (lines && !isSupportLineClamp) {
-      const fontSize = parseInt(window.getComputedStyle(this.node).fontSize, 10) || 14;
       const text = this.shadowChildren.innerText;
-      const targetWidth = (this.node.offsetWidth || this.node.parentNode.offsetWidth) * lines;
+      const lineHeight = parseInt(getComputedStyle(this.root).lineHeight, 10);
+      const targetHeight = lines * lineHeight;
+      this.content.style.height = `${targetHeight}px`;
+      const totalHeight = this.shadowChildren.offsetHeight;
       const shadowNode = this.shadow.firstChild;
 
+      if (totalHeight <= targetHeight) {
+        this.setState({
+          text,
+          targetCount: text.length,
+        });
+        return;
+      }
+
       // bisection
-      const tw = (targetWidth - (lines * (fontSize / 2)) - fontSize);
       const len = text.length;
       const mid = Math.floor(len / 2);
 
-      const count = this.bisection(tw, mid, 0, len, text, shadowNode);
+      const count = this.bisection(targetHeight, mid, 0, len, text, shadowNode);
 
       this.setState({
         text,
@@ -74,40 +83,49 @@ export default class Ellipsis extends Component {
     }
   }
 
-  bisection = (tw, m, b, e, text, shadowNode) => {
+  bisection = (th, m, b, e, text, shadowNode) => {
+    const suffix = '...';
     let mid = m;
     let end = e;
     let begin = b;
-    shadowNode.innerHTML = text.substring(0, mid);
-    let sw = shadowNode.offsetWidth;
+    shadowNode.innerHTML = text.substring(0, mid) + suffix;
+    let sh = shadowNode.offsetHeight;
 
-    if (sw < tw) {
-      shadowNode.innerHTML = text.substring(0, mid + 1);
-      sw = shadowNode.offsetWidth;
-      if (sw >= tw) {
+    if (sh <= th) {
+      shadowNode.innerHTML = text.substring(0, mid + 1) + suffix;
+      sh = shadowNode.offsetHeight;
+      if (sh > th) {
         return mid;
       } else {
         begin = mid;
         mid = Math.floor((end - begin) / 2) + begin;
-        return this.bisection(tw, mid, begin, end, text, shadowNode);
+        return this.bisection(th, mid, begin, end, text, shadowNode);
       }
     } else {
       if (mid - 1 < 0) {
         return mid;
       }
-      shadowNode.innerHTML = text.substring(0, mid - 1);
-      sw = shadowNode.offsetWidth;
-      if (sw <= tw) {
-        return mid;
+      shadowNode.innerHTML = text.substring(0, mid - 1) + suffix;
+      sh = shadowNode.offsetHeight;
+      if (sh <= th) {
+        return mid - 1;
       } else {
         end = mid;
         mid = Math.floor((end - begin) / 2) + begin;
-        return this.bisection(tw, mid, begin, end, text, shadowNode);
+        return this.bisection(th, mid, begin, end, text, shadowNode);
       }
     }
   }
 
-  handleRef = (n) => {
+  handleRoot = (n) => {
+    this.root = n;
+  }
+
+  handleContent = (n) => {
+    this.content = n;
+  }
+
+  handleNode = (n) => {
     this.node = n;
   }
 
@@ -129,7 +147,6 @@ export default class Ellipsis extends Component {
       tooltip,
       ...restProps
     } = this.props;
-
 
     const cls = classNames(styles.ellipsis, className, {
       [styles.lines]: (lines && !isSupportLineClamp),
@@ -160,7 +177,7 @@ export default class Ellipsis extends Component {
     }
 
     const childNode = (
-      <span>
+      <span ref={this.handleNode}>
         {
           (targetCount > 0) && text.substring(0, targetCount)
         }
@@ -173,16 +190,20 @@ export default class Ellipsis extends Component {
     return (
       <div
         {...restProps}
-        ref={this.handleRef}
+        ref={this.handleRoot}
         className={cls}
       >
-        {
-          tooltip ? (
-            <Tooltip title={text}>{childNode}</Tooltip>
-          ) : childNode
-        }
-        <div className={styles.shadow} ref={this.handleShadowChildren}>{children}</div>
-        <div className={styles.shadow} ref={this.handleShadow}><span>{text}</span></div>
+        <div
+          ref={this.handleContent}
+        >
+          {
+            tooltip ? (
+              <Tooltip title={text}>{childNode}</Tooltip>
+            ) : childNode
+          }
+          <div className={styles.shadow} ref={this.handleShadowChildren}>{children}</div>
+          <div className={styles.shadow} ref={this.handleShadow}><span>{text}</span></div>
+        </div>
       </div>
     );
   }

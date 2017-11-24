@@ -35,7 +35,7 @@ export default function request(url, options) {
     newOptions.body = JSON.stringify(newOptions.body);
   }
 
-  return window.fetch(url, newOptions)
+  return fetch(url, newOptions)
     .then(checkStatus)
     .then(response => response.json())
     .catch((error) => {
