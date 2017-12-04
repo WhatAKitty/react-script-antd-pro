@@ -35,10 +35,14 @@ export function getRule({ urlparams }) {
   }
 
   if (urlparams.status) {
-    const s = urlparams.status.split(',');
-    if (s.length === 1) {
-      dataSource = dataSource.filter(data => parseInt(data.status, 10) === parseInt(s[0], 10));
-    }
+    const status = urlparams.status.split(',');
+    let filterDataSource = [];
+    status.forEach((s) => {
+      filterDataSource = filterDataSource.concat(
+        [...dataSource].filter(data => parseInt(data.status, 10) === parseInt(s[0], 10))
+      );
+    });
+    dataSource = filterDataSource;
   }
 
   if (urlparams.no) {

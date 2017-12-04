@@ -26,7 +26,7 @@ export default {
     // },
     return {
       name: 'Serati Ma',
-      avatar: 'https://gw.alipayobjects.com/zos/rmsportal/dRFVcIqZOYPcSNrlJsqQ.png',
+      avatar: 'https://gw.alipayobjects.com/zos/rmsportal/eHBsAsOrrJcnvFlnzNTT.png',
       userid: '00000001',
       notifyCount: 12,
     }

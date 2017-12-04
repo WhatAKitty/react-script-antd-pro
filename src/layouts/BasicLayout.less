@@ -11,7 +11,7 @@
   height: 64px;
   position: relative;
   line-height: 64px;
-  padding-left: 24px;
+  padding-left: (@menu-collapsed-width - 32px) / 2;
   transition: all .3s;
   background: #002140;
   overflow: hidden;
@@ -31,14 +31,7 @@
   }
 }
 
-:global(.ant-layout-sider-collapsed) .logo {
-  padding-left: 24px;
-  > a {
-    width: 32px;
-  }
-}
-
-.trigger {
+i.trigger {
   font-size: 20px;
   line-height: 64px;
   cursor: pointer;

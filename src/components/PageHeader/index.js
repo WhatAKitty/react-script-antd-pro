@@ -6,16 +6,23 @@ import styles from './index.less';
 
 const { TabPane } = Tabs;
 
-function getBreadcrumbNameWithParams(breadcrumbNameMap, url) {
-  let name = '';
+function getBreadcrumb(breadcrumbNameMap, url) {
+  if (breadcrumbNameMap[url]) {
+    return breadcrumbNameMap[url];
+  }
+  const urlWithoutSplash = url.replace(/\/$/, '');
+  if (breadcrumbNameMap[urlWithoutSplash]) {
+    return breadcrumbNameMap[urlWithoutSplash];
+  }
+  let breadcrumb = '';
   Object.keys(breadcrumbNameMap).forEach((item) => {
     const itemRegExpStr = `^${item.replace(/:[\w-]+/g, '[\\w-]+')}$`;
     const itemRegExp = new RegExp(itemRegExpStr);
     if (itemRegExp.test(url)) {
-      name = breadcrumbNameMap[item];
+      breadcrumb = breadcrumbNameMap[item];
     }
   });
-  return name;
+  return breadcrumb;
 }
 
 export default class PageHeader extends PureComponent {
@@ -69,15 +76,14 @@ export default class PageHeader extends PureComponent {
       const pathSnippets = location.pathname.split('/').filter(i => i);
       const extraBreadcrumbItems = pathSnippets.map((_, index) => {
         const url = `/${pathSnippets.slice(0, index + 1).join('/')}`;
+        const currentBreadcrumb = getBreadcrumb(breadcrumbNameMap, url);
+        const isLinkable = (index !== pathSnippets.length - 1) && currentBreadcrumb.component;
         return (
           <Breadcrumb.Item key={url}>
             {createElement(
-              index === pathSnippets.length - 1 ? 'span' : linkElement,
+              isLinkable ? linkElement : 'span',
               { [linkElement === 'a' ? 'href' : 'to']: url },
-              breadcrumbNameMap[url] ||
-              breadcrumbNameMap[url.replace('/', '')] ||
-              getBreadcrumbNameWithParams(breadcrumbNameMap, url) ||
-              url
+              currentBreadcrumb.name || url,
             )}
           </Breadcrumb.Item>
         );
