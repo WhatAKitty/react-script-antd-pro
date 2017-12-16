@@ -76,10 +76,10 @@ export default {
   'GET /api/profile/basic': () => getProfileBasicData,
   'GET /api/profile/advanced': () => getProfileAdvancedData,
   'POST /api/login/account': ({ params }) => {
-    const { password, userName } = params;
+    const { password, userName, type } = params;
     return {
-      status: password === '888888' && userName === 'admin' ? 200 : 401,
-      type: 'account',
+      status: password === '888888' && userName === 'admin' ? 'ok' : 'error',
+      type,
     };
   },
   'POST /api/login/mobile': () => {

@@ -27,16 +27,15 @@ for (let i = 0; i < 7; i += 1) {
 }))
 export default class Analysis extends Component {
   state = {
-    loading: true,
     salesType: 'all',
     currentTabKey: '',
-    rangePickerValue: [],
+    rangePickerValue: getTimeDistance('year'),
   }
 
   componentDidMount() {
     this.props.dispatch({
       type: 'chart/fetch',
-    }).then(() => this.setState({ loading: false }));
+    });
   }
 
   componentWillUnmount() {
@@ -90,7 +89,7 @@ export default class Analysis extends Component {
   }
 
   render() {
-    const { rangePickerValue, salesType, currentTabKey, loading } = this.state;
+    const { rangePickerValue, salesType, currentTabKey } = this.state;
     const { chart } = this.props;
     const {
       visitData,
@@ -102,6 +101,7 @@ export default class Analysis extends Component {
       salesTypeData,
       salesTypeDataOnline,
       salesTypeDataOffline,
+      loading,
     } = chart;
 
     const salesPieData = salesType === 'all' ?
@@ -328,7 +328,7 @@ export default class Analysis extends Component {
                 </Row>
               </TabPane>
               <TabPane tab="访问量" key="views">
-                <Row gutter={72}>
+                <Row>
                   <Col xl={16} lg={12} md={12} sm={24} xs={24}>
                     <div className={styles.salesBar}>
                       <Bar
