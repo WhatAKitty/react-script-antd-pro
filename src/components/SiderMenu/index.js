@@ -3,6 +3,7 @@ import { Layout, Menu, Icon } from 'antd';
 import { Link } from 'dva/router';
 import logo from '../../assets/logo.svg';
 import styles from './index.less';
+import menus from '../../menu';
 
 const { Sider } = Layout;
 const { SubMenu } = Menu;
@@ -11,7 +12,7 @@ export default class SiderMenu extends PureComponent {
   constructor(props) {
     super(props);
     // 把一级 Layout 的 children 作为菜单项
-    this.menus = props.navData.reduce((arr, current) => arr.concat(current.children), []);
+    this.menus = menus;
     this.state = {
       openKeys: this.getDefaultCollapsedSubMenus(props),
     };
