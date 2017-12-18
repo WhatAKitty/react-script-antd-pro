@@ -49,16 +49,21 @@ export const getRouterData = (app) => {
       component: dynamicWrapper(app, ['list'], () => import('../routes/List/CardList')),
       name: '卡片列表',
     },
-    '/list/cover-card-list': {
-      component: dynamicWrapper(app, ['list'], () => import('../routes/List/CoverCardList')),
+
+    '/list/search': {
+      component: dynamicWrapper(app, ['list'], () => import('../routes/List/List')),
+      name: '搜索列表',
+    },
+    '/list/search/projects': {
+      component: dynamicWrapper(app, ['list'], () => import('../routes/List/Projects')),
       name: '搜索列表（项目）',
     },
-    '/list/filter-card-list': {
-      component: dynamicWrapper(app, ['list'], () => import('../routes/List/FilterCardList')),
+    '/list/search/applications': {
+      component: dynamicWrapper(app, ['list'], () => import('../routes/List/Applications')),
       name: '搜索列表（应用）',
     },
-    '/list/search': {
-      component: dynamicWrapper(app, ['list'], () => import('../routes/List/SearchList')),
+    '/list/search/articles': {
+      component: dynamicWrapper(app, ['list'], () => import('../routes/List/Articles')),
       name: '搜索列表（文章）',
     },
     '/profile/basic': {

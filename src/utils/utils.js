@@ -123,3 +123,35 @@ export function getRoutes(path, routerData) {
   }
   return renderArr;
 }
+
+export function getMenuItem(category, categoryMap, configMap, parentCategory = '') {
+  const itemObject = {
+    name: categoryMap[category].name,
+    icon: categoryMap[category].icon,
+    key: category,
+    children: [],
+  };
+  const itemChildren = Object.keys(configMap).filter(config =>
+    config.indexOf(`/${parentCategory}${category}`) === 0 && config !== `/${parentCategory}${category}`);
+  if (categoryMap[category].childMap) {
+    Object.keys(categoryMap[category].childMap).forEach((child) => {
+      itemObject.children.push(getMenuItem(child, categoryMap[category].childMap, configMap, `${category}/`));
+    });
+    const extraChildren = itemChildren.filter(child =>
+      Object.keys(categoryMap[category].childMap).every(item => child.indexOf(item) === -1));
+    itemObject.children = itemObject.children.concat(extraChildren.map((child) => {
+      return {
+        name: configMap[child].name,
+        path: child,
+      };
+    }));
+  } else {
+    itemObject.children = itemChildren.map((child) => {
+      return {
+        name: configMap[child].name,
+        path: child,
+      };
+    });
+  }
+  return itemObject;
+}
