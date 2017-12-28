@@ -6,7 +6,7 @@ import { connect } from 'dva';
 import { Route, Redirect, Switch } from 'dva/router';
 import { ContainerQuery } from 'react-container-query';
 import classNames from 'classnames';
-// import { enquireScreen } from 'enquire-js';
+import { enquireScreen } from 'enquire-js';
 import GlobalHeader from '../components/GlobalHeader';
 import GlobalFooter from '../components/GlobalFooter';
 import SiderMenu from '../components/SiderMenu';
@@ -18,21 +18,21 @@ import { getMenuData } from '../common/menu';
 /**
  * 根据菜单取得重定向地址.
  */
-// const redirectData = [];
-// const getRedirect = (item) => {
-//   if (item && item.children) {
-//     if (item.children[0] && item.children[0].path) {
-//       redirectData.push({
-//         from: `/${item.path}`,
-//         to: `/${item.children[0].path}`,
-//       });
-//       item.children.forEach((children) => {
-//         getRedirect(children);
-//       });
-//     }
-//   }
-// };
-// getMenuData().forEach(getRedirect);
+const redirectData = [];
+const getRedirect = (item) => {
+  if (item && item.children) {
+    if (item.children[0] && item.children[0].path) {
+      redirectData.push({
+        from: `/${item.path}`,
+        to: `/${item.children[0].path}`,
+      });
+      item.children.forEach((children) => {
+        getRedirect(children);
+      });
+    }
+  }
+};
+getMenuData().forEach(getRedirect);
 
 const { Content } = Layout;
 const query = {
@@ -57,9 +57,9 @@ const query = {
 };
 
 let isMobile = false;
-// enquireScreen((b) => {
-//   isMobile = b;
-// });
+enquireScreen((b) => {
+  isMobile = b;
+});
 
 class BasicLayout extends PureComponent {
   static childContextTypes = {
@@ -78,11 +78,11 @@ class BasicLayout extends PureComponent {
     };
   }
   componentDidMount() {
-    // enquireScreen((b) => {
-    //   this.setState({
-    //     isMobile: !!b,
-    //   });
-    // });
+    enquireScreen((b) => {
+      this.setState({
+        isMobile: !!b,
+      });
+    });
   }
   getPageTitle() {
     const { routerData, location } = this.props;
@@ -118,9 +118,9 @@ class BasicLayout extends PureComponent {
             <div style={{ minHeight: 'calc(100vh - 260px)' }}>
               <Switch>
                 {
-                  // redirectData.map(item =>
-                  //   <Redirect key={item.from} exact from={item.from} to={item.to} />
-                  // )
+                  redirectData.map(item =>
+                    <Redirect key={item.from} exact from={item.from} to={item.to} />
+                  )
                 }
                 {
                   getRoutes(match.path, routerData).map(item => (
