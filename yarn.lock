@@ -2240,6 +2240,12 @@ enhanced-resolve@^3.4.0:
     object-assign "^4.0.1"
     tapable "^0.2.7"
 
+enquire-js@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/enquire-js/-/enquire-js-0.1.1.tgz#1a82fa929d1f7e879be62ab7e1612f5c5da6b5e3"
+  dependencies:
+    enquire.js "^2.1.6"
+
 enquire.js@^2.1.1, enquire.js@^2.1.6:
   version "2.1.6"
   resolved "http://registry.npm.taobao.org/enquire.js/download/enquire.js-2.1.6.tgz#3e8780c9b8b835084c3f60e166dbc3c2a3c89814"
@@ -5405,7 +5411,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@15.x, prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.6, prop-types@^15.5.7, prop-types@^15.5.8, prop-types@^15.5.9, prop-types@^15.6.0:
+prop-types@15.x, prop-types@^15.5.0, prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.6, prop-types@^15.5.7, prop-types@^15.5.8, prop-types@^15.5.9, prop-types@^15.6.0:
   version "15.6.0"
   resolved "http://registry.npm.taobao.org/prop-types/download/prop-types-15.6.0.tgz#ceaf083022fc46b4a35f69e13ef75aed0d639856"
   dependencies:
@@ -5578,6 +5584,14 @@ rc-dialog@~7.0.3:
     object-assign "~4.1.0"
     rc-animate "2.x"
     rc-util "^4.1.0"
+
+rc-drawer-menu@^0.5.3:
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/rc-drawer-menu/-/rc-drawer-menu-0.5.3.tgz#747e04e1821d6e3c09dd0b35d0b00f93736c4337"
+  dependencies:
+    babel-runtime "6.x"
+    classnames "^2.2.5"
+    prop-types "^15.5.0"
 
 rc-dropdown@~2.1.0:
   version "2.1.0"

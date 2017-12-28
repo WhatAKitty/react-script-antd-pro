@@ -1,22 +1,18 @@
 import dva from 'dva';
 import 'moment/locale/zh-cn';
 import './g2';
+import onError from './error';
 import createHistory from 'history/createBrowserHistory';
-import { message } from 'antd';
 import './index.less';
 
 import FetchMock from 'react-fetch-mock';
 
 window.fetch = new FetchMock(require('./__mocks__')).fetch;
 
-const ERROR_MSG_DURATION = 3; // 3 秒
-
 // 1. Initialize
 const app = dva({
   history: createHistory(),
-  onError(e) {
-    message.error(e.message, ERROR_MSG_DURATION);
-  },
+  onError,
 });
 
 // 2. Plugins

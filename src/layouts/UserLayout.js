@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link, Route } from 'dva/router';
 import DocumentTitle from 'react-document-title';
 import { Icon } from 'antd';
@@ -22,13 +21,6 @@ const links = [{
 const copyright = <div>Copyright <Icon type="copyright" /> 2017 蚂蚁金服体验技术部出品</div>;
 
 class UserLayout extends React.PureComponent {
-  static childContextTypes = {
-    location: PropTypes.object,
-  }
-  getChildContext() {
-    const { location } = this.props;
-    return { location };
-  }
   getPageTitle() {
     const { routerData, location } = this.props;
     const { pathname } = location;
@@ -40,7 +32,6 @@ class UserLayout extends React.PureComponent {
   }
   render() {
     const { routerData, match } = this.props;
-
     return (
       <DocumentTitle title={this.getPageTitle()}>
         <div className={styles.container}>
@@ -54,12 +45,13 @@ class UserLayout extends React.PureComponent {
             <div className={styles.desc}>Ant Design 是西湖区最具影响力的 Web 设计规范</div>
           </div>
           {
-            getRoutes(match.path, routerData).map(path =>
+            getRoutes(match.path, routerData).map(item =>
               (
                 <Route
-                  key={`${match.path}${path}`}
-                  path={`${match.path}${path}`}
-                  component={routerData[`${match.path}${path}`].component}
+                  key={item.key}
+                  path={item.path}
+                  component={item.component}
+                  exact={item.exact}
                 />
               )
             )

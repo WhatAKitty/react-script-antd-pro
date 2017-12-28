@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { routerRedux, Route, Switch, Redirect } from 'dva/router';
+import { routerRedux, Route, Switch } from 'dva/router';
 import { connect } from 'dva';
 import { Input } from 'antd';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
@@ -8,10 +7,6 @@ import { getRoutes } from '../../utils/utils';
 
 @connect()
 export default class SearchList extends Component {
-  static contextTypes = {
-    routerData: PropTypes.object,
-  };
-
   handleTabChange = (key) => {
     const { dispatch, match } = this.props;
     switch (key) {
@@ -53,8 +48,7 @@ export default class SearchList extends Component {
       </div>
     );
 
-    const { match } = this.props;
-    const { routerData } = this.context;
+    const { match, routerData, location } = this.props;
     const routes = getRoutes(match.path, routerData);
 
     return (
@@ -62,21 +56,22 @@ export default class SearchList extends Component {
         title="搜索列表"
         content={mainSearch}
         tabList={tabList}
+        activeTabKey={location.pathname.replace(`${match.path}/`, '')}
         onTabChange={this.handleTabChange}
       >
         <Switch>
           {
-            routes.map(path =>
+            routes.map(item =>
               (
                 <Route
-                  key={`${match.path}${path}`}
-                  path={`${match.path}${path}`}
-                  component={routerData[`${match.path}${path}`].component}
+                  key={item.key}
+                  path={item.path}
+                  component={item.component}
+                  exact={item.exact}
                 />
               )
             )
           }
-          <Redirect exact from={`${match.path}`} to={`${match.path}${routes[0]}`} />
         </Switch>
       </PageHeaderLayout>
     );

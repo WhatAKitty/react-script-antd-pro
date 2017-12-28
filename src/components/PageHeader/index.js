@@ -60,6 +60,7 @@ export default class PageHeader extends PureComponent {
     const {
       title, logo, action, content, extraContent,
       breadcrumbList, tabList, className, linkElement = 'a',
+      activeTabKey,
     } = this.props;
     const clsString = classNames(styles.pageHeader, className);
     let breadcrumb;
@@ -72,13 +73,13 @@ export default class PageHeader extends PureComponent {
           itemRender={this.itemRender}
         />
       );
-    } else if (location && location.pathname) {
+    } else if (location && location.pathname && (!breadcrumbList)) {
       const pathSnippets = location.pathname.split('/').filter(i => i);
       const extraBreadcrumbItems = pathSnippets.map((_, index) => {
         const url = `/${pathSnippets.slice(0, index + 1).join('/')}`;
         const currentBreadcrumb = getBreadcrumb(breadcrumbNameMap, url);
         const isLinkable = (index !== pathSnippets.length - 1) && currentBreadcrumb.component;
-        return currentBreadcrumb.name ? (
+        return currentBreadcrumb.name && !currentBreadcrumb.hideInBreadcrumb ? (
           <Breadcrumb.Item key={url}>
             {createElement(
               isLinkable ? linkElement : 'span',
@@ -120,7 +121,10 @@ export default class PageHeader extends PureComponent {
       breadcrumb = null;
     }
 
-    const tabDefaultValue = tabList && (tabList.filter(item => item.default)[0] || tabList[0]);
+    let tabDefaultValue;
+    if (activeTabKey !== undefined && tabList) {
+      tabDefaultValue = tabList.filter(item => item.default)[0] || tabList[0];
+    }
 
     return (
       <div className={clsString}>
@@ -140,16 +144,18 @@ export default class PageHeader extends PureComponent {
         </div>
         {
           tabList &&
-          tabList.length &&
-          <Tabs
-            className={styles.tabs}
-            defaultActiveKey={(tabDefaultValue && tabDefaultValue.key)}
-            onChange={this.onChange}
-          >
-            {
-              tabList.map(item => <TabPane tab={item.tab} key={item.key} />)
-            }
-          </Tabs>
+          tabList.length && (
+            <Tabs
+              className={styles.tabs}
+              defaultActiveKey={(tabDefaultValue && tabDefaultValue.key)}
+              activeKey={activeTabKey}
+              onChange={this.onChange}
+            >
+              {
+                tabList.map(item => <TabPane tab={item.tab} key={item.key} />)
+              }
+            </Tabs>
+          )
         }
       </div>
     );

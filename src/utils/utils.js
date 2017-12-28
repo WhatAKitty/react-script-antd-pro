@@ -95,7 +95,7 @@ export function digitUppercase(n) {
 
 function getRelation(str1, str2) {
   if (str1 === str2) {
-    console.warn('Two route path can not be equal!');
+    console.warn('Two path are equal!');  // eslint-disable-line
   }
   const arr1 = str1.split('/');
   const arr2 = str2.split('/');
@@ -121,37 +121,14 @@ export function getRoutes(path, routerData) {
       renderArr.push(routes[i]);
     }
   }
-  return renderArr;
-}
-
-export function getMenuItem(category, categoryMap, configMap, parentCategory = '') {
-  const itemObject = {
-    name: categoryMap[category].name,
-    icon: categoryMap[category].icon,
-    key: category,
-    children: [],
-  };
-  const itemChildren = Object.keys(configMap).filter(config =>
-    config.indexOf(`/${parentCategory}${category}`) === 0 && config !== `/${parentCategory}${category}`);
-  if (categoryMap[category].childMap) {
-    Object.keys(categoryMap[category].childMap).forEach((child) => {
-      itemObject.children.push(getMenuItem(child, categoryMap[category].childMap, configMap, `${category}/`));
-    });
-    const extraChildren = itemChildren.filter(child =>
-      Object.keys(categoryMap[category].childMap).every(item => child.indexOf(item) === -1));
-    itemObject.children = itemObject.children.concat(extraChildren.map((child) => {
-      return {
-        name: configMap[child].name,
-        path: child,
-      };
-    }));
-  } else {
-    itemObject.children = itemChildren.map((child) => {
-      return {
-        name: configMap[child].name,
-        path: child,
-      };
-    });
-  }
-  return itemObject;
+  const renderRoutes = renderArr.map((item) => {
+    const exact = !routes.some(route => route !== item && getRelation(route, item) === 1);
+    return {
+      key: `${path}${item}`,
+      path: `${path}${item}`,
+      component: routerData[`${path}${item}`].component,
+      exact,
+    };
+  });
+  return renderRoutes;
 }
