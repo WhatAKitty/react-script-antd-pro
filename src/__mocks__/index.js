@@ -69,7 +69,7 @@ export default {
   'GET /api/tags': () => {
     return Mock.mock({
       'list|100': [{ name: '@city', 'value|1-100': 150, 'type|0-2': 1 }]
-    }).list;
+    });
   },
   'GET /api/fake_list': getFakeList,
   'GET /api/fake_chart_data': () => getFakeChartData,

@@ -6,12 +6,6 @@ module.exports = function override(config, env) {
   config = injectBabelPlugin('transform-decorators-legacy', config);
   config = injectBabelPlugin(['import', { libraryName: 'antd', style: true }], config);
 
-  config.externals = {
-    "g2": "G2",
-    "g-cloud": "Cloud",
-    "g2-plugin-slider": "G2.Plugin.slider"
-  }
-
   return rewireLess.withLoaderOptions(
     `${env === 'production' ? 'app' : '[local]'}-[hash:base64:8]`,
     {

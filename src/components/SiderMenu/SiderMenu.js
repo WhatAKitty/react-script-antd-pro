@@ -1,9 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Layout, Menu, Icon } from 'antd';
 import { Link } from 'dva/router';
-import logo from '../../assets/logo.svg';
 import styles from './index.less';
-import { getMenuData } from '../../common/menu';
 
 const { Sider } = Layout;
 const { SubMenu } = Menu;
@@ -11,10 +9,17 @@ const { SubMenu } = Menu;
 export default class SiderMenu extends PureComponent {
   constructor(props) {
     super(props);
-    this.menus = getMenuData();
+    this.menus = props.menuData;
     this.state = {
       openKeys: this.getDefaultCollapsedSubMenus(props),
     };
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.location.pathname !== this.props.location.pathname) {
+      this.setState({
+        openKeys: this.getDefaultCollapsedSubMenus(nextProps),
+      });
+    }
   }
   getDefaultCollapsedSubMenus(props) {
     const { location: { pathname } } = props || this.props;
@@ -46,7 +51,6 @@ export default class SiderMenu extends PureComponent {
   }
   getSelectedMenuKeys = (path) => {
     const flatMenuKeys = this.getFlatMenuKeys(this.menus);
-
     if (flatMenuKeys.indexOf(path.replace(/^\//, '')) > -1) {
       return [path.replace(/^\//, '')];
     }
@@ -56,7 +60,7 @@ export default class SiderMenu extends PureComponent {
     return flatMenuKeys.filter((item) => {
       const itemRegExpStr = `^${item.replace(/:[\w-]+/g, '[\\w-]+')}$`;
       const itemRegExp = new RegExp(itemRegExpStr);
-      return itemRegExp.test(path.replace(/^\//, ''));
+      return itemRegExp.test(path.replace(/^\//, '').replace(/\/$/, ''));
     });
   }
   getNavMenuItems(menusData) {
@@ -105,7 +109,7 @@ export default class SiderMenu extends PureComponent {
                   to={itemPath}
                   target={item.target}
                   replace={itemPath === this.props.location.pathname}
-                  onClick={this.props.isMobile && (() => { this.props.onCollapse(true); })}
+                  onClick={this.props.isMobile ? () => { this.props.onCollapse(true); } : undefined}
                 >
                   {icon}<span>{item.name}</span>
                 </Link>
@@ -125,11 +129,17 @@ export default class SiderMenu extends PureComponent {
     });
   }
   render() {
-    const { collapsed, location: { pathname }, onCollapse } = this.props;
+    const { logo, collapsed, location: { pathname }, onCollapse } = this.props;
+    const { openKeys } = this.state;
     // Don't show popup menu when it is been collapsed
     const menuProps = collapsed ? {} : {
-      openKeys: this.state.openKeys,
+      openKeys,
     };
+    // if pathname can't match, use the nearest parent's key
+    let selectedKeys = this.getSelectedMenuKeys(pathname);
+    if (!selectedKeys.length) {
+      selectedKeys = [openKeys[openKeys.length - 1]];
+    }
     return (
       <Sider
         trigger={null}
@@ -151,7 +161,7 @@ export default class SiderMenu extends PureComponent {
           mode="inline"
           {...menuProps}
           onOpenChange={this.handleOpenChange}
-          selectedKeys={this.getSelectedMenuKeys(pathname)}
+          selectedKeys={selectedKeys}
           style={{ padding: '16px 0', width: '100%' }}
         >
           {this.getNavMenuItems(this.menus)}

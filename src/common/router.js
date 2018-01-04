@@ -9,12 +9,10 @@ const dynamicWrapper = (app, models, component) => dynamic({
   models: () => models.filter(m => !app._models.some(({ namespace }) => namespace === m)).map(m => import(`../models/${m}.js`)),
   // add routerData prop
   component: () => {
-    const p = component();
-    return new Promise((resolve, reject) => {
-      p.then((raw) => {
-        const Comp = raw.default || raw;
-        resolve(props => <Comp {...props} routerData={getRouterData(app)} />);
-      }).catch(err => reject(err));
+    const routerData = getRouterData(app);
+    return component().then((raw) => {
+      const Component = raw.default || raw;
+      return props => <Component {...props} routerData={routerData} />;
     });
   },
 });
@@ -53,6 +51,9 @@ export const getRouterData = (app) => {
     },
     '/form/step-form': {
       component: dynamicWrapper(app, ['form'], () => import('../routes/Forms/StepForm')),
+    },
+    '/form/step-form/info': {
+      component: dynamicWrapper(app, ['form'], () => import('../routes/Forms/StepForm/Step1')),
     },
     '/form/step-form/confirm': {
       component: dynamicWrapper(app, ['form'], () => import('../routes/Forms/StepForm/Step2')),

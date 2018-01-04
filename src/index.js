@@ -1,5 +1,6 @@
 import dva from 'dva';
 import 'moment/locale/zh-cn';
+import FastClick from 'fastclick';
 import './g2';
 import onError from './error';
 import createHistory from 'history/createBrowserHistory';
@@ -26,3 +27,4 @@ app.router(require('./router').default);
 
 // 5. Start
 app.start('#root');
+FastClick.attach(document.body);

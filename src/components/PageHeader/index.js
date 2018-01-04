@@ -64,7 +64,23 @@ export default class PageHeader extends PureComponent {
     } = this.props;
     const clsString = classNames(styles.pageHeader, className);
     let breadcrumb;
-    if (routes && params) {
+    if (breadcrumbList && breadcrumbList.length) {
+      breadcrumb = (
+        <Breadcrumb className={styles.breadcrumb}>
+          {
+            breadcrumbList.map(item => (
+              <Breadcrumb.Item key={item.title}>
+                {item.href ? (
+                  createElement(linkElement, {
+                    [linkElement === 'a' ? 'href' : 'to']: item.href,
+                  }, item.title)
+                ) : item.title}
+              </Breadcrumb.Item>)
+            )
+          }
+        </Breadcrumb>
+      );
+    } else if (routes && params) {
       breadcrumb = (
         <Breadcrumb
           className={styles.breadcrumb}
@@ -73,7 +89,7 @@ export default class PageHeader extends PureComponent {
           itemRender={this.itemRender}
         />
       );
-    } else if (location && location.pathname && (!breadcrumbList)) {
+    } else if (location && location.pathname) {
       const pathSnippets = location.pathname.split('/').filter(i => i);
       const extraBreadcrumbItems = pathSnippets.map((_, index) => {
         const url = `/${pathSnippets.slice(0, index + 1).join('/')}`;
@@ -101,22 +117,6 @@ export default class PageHeader extends PureComponent {
           {breadcrumbItems}
         </Breadcrumb>
       );
-    } else if (breadcrumbList && breadcrumbList.length) {
-      breadcrumb = (
-        <Breadcrumb className={styles.breadcrumb}>
-          {
-            breadcrumbList.map(item => (
-              <Breadcrumb.Item key={item.title}>
-                {item.href ? (
-                  createElement(linkElement, {
-                    [linkElement === 'a' ? 'href' : 'to']: item.href,
-                  }, item.title)
-                ) : item.title}
-              </Breadcrumb.Item>)
-            )
-          }
-        </Breadcrumb>
-      );
     } else {
       breadcrumb = null;
     }
@@ -124,6 +124,13 @@ export default class PageHeader extends PureComponent {
     let tabDefaultValue;
     if (activeTabKey !== undefined && tabList) {
       tabDefaultValue = tabList.filter(item => item.default)[0] || tabList[0];
+    }
+
+    const activeKeyProps = {
+      defaultActiveKey: tabDefaultValue && tabDefaultValue.key,
+    };
+    if (activeTabKey !== undefined) {
+      activeKeyProps.activeKey = activeTabKey;
     }
 
     return (
@@ -147,8 +154,7 @@ export default class PageHeader extends PureComponent {
           tabList.length && (
             <Tabs
               className={styles.tabs}
-              defaultActiveKey={(tabDefaultValue && tabDefaultValue.key)}
-              activeKey={activeTabKey}
+              {...activeKeyProps}
               onChange={this.onChange}
             >
               {
