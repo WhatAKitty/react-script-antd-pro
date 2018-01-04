@@ -1,4 +1,3 @@
-import { getUrlParams } from './utils';
 
 const titles = [
   'Alipay',

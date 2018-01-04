@@ -3,7 +3,6 @@ import { Mock } from 'react-fetch-mock';
 import { getRule, postRule } from './rule';
 import { getActivities, getNotice, getFakeList } from './api';
 import { getFakeChartData } from './chart';
-import { imgMap } from './utils';
 import { getProfileBasicData } from './profile';
 import { getProfileAdvancedData } from './profile';
 import { getNotices } from './notices';
@@ -11,19 +10,6 @@ import { getNotices } from './notices';
 export default {
   // 支持值为 Object 和 Array
   'GET /api/currentUser': () => {
-    // $desc: "获取当前用户接口",
-    // $params: {
-    //   pageSize: {
-    //     desc: '分页',
-    //     exp: 2,
-    //   },
-    // },
-    // $body: {
-    //   name: 'momo.zxy',
-    //   avatar: imgMap.user,
-    //   userid: '00000001',
-    //   notifyCount: 12,
-    // },
     return {
       name: 'Serati Ma',
       avatar: 'https://gw.alipayobjects.com/zos/rmsportal/eHBsAsOrrJcnvFlnzNTT.png',

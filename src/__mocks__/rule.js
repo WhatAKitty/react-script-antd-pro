@@ -1,4 +1,3 @@
-import { getUrlParams } from './utils';
 
 // mock tableListDataSource
 let tableListDataSource = [];
