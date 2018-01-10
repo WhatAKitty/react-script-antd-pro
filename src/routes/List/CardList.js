@@ -7,8 +7,9 @@ import Ellipsis from '../../components/Ellipsis';
 
 import styles from './CardList.less';
 
-@connect(state => ({
-  list: state.list,
+@connect(({ list, loading }) => ({
+  list,
+  loading: loading.models.list,
 }))
 export default class CardList extends PureComponent {
   componentDidMount() {
@@ -21,7 +22,7 @@ export default class CardList extends PureComponent {
   }
 
   render() {
-    const { list: { list, loading } } = this.props;
+    const { list: { list }, loading } = this.props;
 
     const content = (
       <div className={styles.pageHeaderContent}>
@@ -66,7 +67,7 @@ export default class CardList extends PureComponent {
                 <Card hoverable className={styles.card} actions={[<a>操作一</a>, <a>操作二</a>]}>
                   <Card.Meta
                     avatar={<img alt="" className={styles.cardAvatar} src={item.avatar} />}
-                    title={<a href="">{item.title}</a>}
+                    title={<a href="#">{item.title}</a>}
                     description={(
                       <Ellipsis className={styles.item} lines={3}>{item.description}</Ellipsis>
                     )}

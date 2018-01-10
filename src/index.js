@@ -4,6 +4,7 @@ import FastClick from 'fastclick';
 import './g2';
 import onError from './error';
 import createHistory from 'history/createBrowserHistory';
+import createLoading from 'dva-loading';
 import './index.less';
 
 import FetchMock from 'react-fetch-mock';
@@ -17,7 +18,7 @@ const app = dva({
 });
 
 // 2. Plugins
-// app.use({});
+app.use(createLoading());
 
 // 3. Register global model
 app.model(require('./models/global').default);
