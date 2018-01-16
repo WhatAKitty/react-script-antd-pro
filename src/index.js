@@ -29,3 +29,5 @@ app.router(require('./router').default);
 // 5. Start
 app.start('#root');
 FastClick.attach(document.body);
+
+export default app._store;  // eslint-disable-line

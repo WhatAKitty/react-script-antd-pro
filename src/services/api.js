@@ -61,10 +61,11 @@ export async function queryFakeList(params) {
 }
 
 export async function fakeAccountLogin(params) {
-  return request('/api/login/account', {
+  const response = await request('/api/login/account', {
     method: 'POST',
     body: params,
   });
+  return response;
 }
 
 export async function fakeRegister(params) {

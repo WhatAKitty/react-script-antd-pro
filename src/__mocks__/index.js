@@ -65,70 +65,75 @@ export default {
     const { password, userName, type } = params;
     if (password === '888888' && userName === 'admin') {
       return {
-        status: 'ok',
         type,
-        currentAuthority: 'admin'
+        currentAuthority: 'admin',
       };
-      return;
     }
     if (password === '123456' && userName === 'user') {
       return {
-        status: 'ok',
         type,
         currentAuthority: 'user',
       };
-      reutrn;
     }
     return {
-      status: 'error',
-      type,
-      currentAuthority: 'guest',
+      status: 401,
+      data: {
+        type,
+        currentAuthority: 'guest',
+      }
     };
   },
   'POST /api/login/mobile': () => {
     return {
-      status: 200,
       type: 'mobile'
     };
   },
   'POST /api/register': () => {
-    return { status: 'ok', currentAuthority: 'user' };
+    return { currentAuthority: 'user' };
   },
   'GET /api/notices': getNotices,
   'GET /api/500': (req, res) => {
     return ({
-      "timestamp": 1513932555104,
       "status": 500,
-      "error": "error",
-      "message": "error",
-      "path": "/base/category/list"
+      data: {
+        "timestamp": 1513932555104,
+        "error": "error",
+        "message": "error",
+        "path": "/base/category/list"
+      }
     });
   },
   'GET /api/404': (req, res) => {
     return ({
-      "timestamp": 1513932643431,
       "status": 404,
-      "error": "Not Found",
-      "message": "No message available",
-      "path": "/base/category/list/2121212"
+      data: {
+        "timestamp": 1513932643431,
+        "error": "Not Found",
+        "message": "No message available",
+        "path": "/base/category/list/2121212"
+      }
     });
   },
   'GET /api/403': (req, res) => {
     return ({
-      "timestamp": 1513932555104,
       "status": 403,
-      "error": "Unauthorized",
-      "message": "Unauthorized",
-      "path": "/base/category/list"
+      data: {
+        "timestamp": 1513932555104,
+        "error": "Unauthorized",
+        "message": "Unauthorized",
+        "path": "/base/category/list"
+      },
     });
   },
   'GET /api/401': (req, res) => {
     return ({
-      "timestamp": 1513932555104,
       "status": 401,
-      "error": "Unauthorized",
-      "message": "Unauthorized",
-      "path": "/base/category/list"
+      data: {
+        "timestamp": 1513932555104,
+        "error": "Unauthorized",
+        "message": "Unauthorized",
+        "path": "/base/category/list"
+      }
     });
   }
 }
