@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@antv/data-set@^0.8.3":
-  version "0.8.3"
-  resolved "https://registry.yarnpkg.com/@antv/data-set/-/data-set-0.8.3.tgz#7f58207532a9de5d174b52676b876247b2acab02"
+"@antv/data-set@^0.8.5":
+  version "0.8.5"
+  resolved "https://registry.yarnpkg.com/@antv/data-set/-/data-set-0.8.5.tgz#9ab5f53b7ac078f52211db6cefd0c6a42822bd0e"
   dependencies:
     d3-array "~1.2.0"
     d3-composite-projections "~1.2.0"
@@ -26,9 +26,9 @@
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@antv/g2-plugin-slider/-/g2-plugin-slider-2.0.1.tgz#45cf6da6f2050fabe64166a213674422afe4eebf"
 
-"@antv/g2@3.0.4-beta.2":
-  version "3.0.4-beta.2"
-  resolved "https://registry.yarnpkg.com/@antv/g2/-/g2-3.0.4-beta.2.tgz#9ab08658d9f79db66d17e7c57cff1a9e2218d954"
+"@antv/g2@3.0.4-beta.4":
+  version "3.0.4-beta.4"
+  resolved "https://registry.yarnpkg.com/@antv/g2/-/g2-3.0.4-beta.4.tgz#f404e7af44a0a8d077e75715c7c5c62e9fe6fa4a"
   dependencies:
     "@antv/g" "~2.0.4"
     fecha "~2.3.2"
@@ -193,9 +193,9 @@ ansi-styles@^3.0.0, ansi-styles@^3.1.0:
   dependencies:
     color-convert "^1.9.0"
 
-antd@^3.1.3:
-  version "3.1.3"
-  resolved "https://registry.yarnpkg.com/antd/-/antd-3.1.3.tgz#747b7efc953224a8e8f292bffb800804a900ac60"
+antd@^3.1.4:
+  version "3.1.4"
+  resolved "https://registry.yarnpkg.com/antd/-/antd-3.1.4.tgz#1e31fce5690df63c53a56349bf7d627074d23c10"
   dependencies:
     array-tree-filter "^2.0.0"
     babel-runtime "6.x"
@@ -1146,11 +1146,11 @@ bizcharts-plugin-slider@^2.0.1:
   dependencies:
     "@antv/g2-plugin-slider" "2.0.1"
 
-bizcharts@^3.1.0-beta.6:
-  version "3.1.0-beta.6"
-  resolved "https://registry.yarnpkg.com/bizcharts/-/bizcharts-3.1.0-beta.6.tgz#cc4ca710e437cdad12b247e2780053d12b1208c4"
+bizcharts@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/bizcharts/-/bizcharts-3.1.2.tgz#12b85883441fbbd2a032f21276b1fd23bdbb059f"
   dependencies:
-    "@antv/g2" "3.0.4-beta.2"
+    "@antv/g2" "3.0.4-beta.4"
     invariant "^2.2.2"
     prop-types "^15.6.0"
     warning "^3.0.0"
@@ -2422,9 +2422,9 @@ enhanced-resolve@^3.4.0:
     object-assign "^4.0.1"
     tapable "^0.2.7"
 
-enquire-js@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/enquire-js/-/enquire-js-0.1.1.tgz#1a82fa929d1f7e879be62ab7e1612f5c5da6b5e3"
+enquire-js@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/enquire-js/-/enquire-js-0.1.2.tgz#c334b103e46c5316f7f49423823f183f38b44060"
   dependencies:
     enquire.js "^2.1.6"
 
@@ -5795,9 +5795,9 @@ rc-dialog@~7.1.0:
     rc-animate "2.x"
     rc-util "^4.1.0"
 
-rc-drawer-menu@^0.5.3:
-  version "0.5.3"
-  resolved "https://registry.yarnpkg.com/rc-drawer-menu/-/rc-drawer-menu-0.5.3.tgz#747e04e1821d6e3c09dd0b35d0b00f93736c4337"
+rc-drawer-menu@^0.5.4:
+  version "0.5.4"
+  resolved "https://registry.yarnpkg.com/rc-drawer-menu/-/rc-drawer-menu-0.5.4.tgz#93f752c1430e493c4af0632980baad4e46ec88af"
   dependencies:
     babel-runtime "6.x"
     classnames "^2.2.5"
@@ -6140,9 +6140,9 @@ react-error-overlay@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-4.0.0.tgz#d198408a85b4070937a98667f500c832f86bd5d4"
 
-react-fetch-mock@^0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/react-fetch-mock/-/react-fetch-mock-0.4.1.tgz#7bbd9a04dabdeee32d954d0ac8d3f1ce518692de"
+react-fetch-mock@^0.4.2:
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/react-fetch-mock/-/react-fetch-mock-0.4.2.tgz#59f8b77136161da37abab3f6f36cefd0f99fc218"
   dependencies:
     mockjs "^1.0.1-beta3"
 
@@ -7427,6 +7427,10 @@ url-parse@^1.1.8:
   dependencies:
     querystringify "~1.0.0"
     requires-port "1.0.x"
+
+url-polyfill@^1.0.11:
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/url-polyfill/-/url-polyfill-1.0.11.tgz#f3a76d3795f42a459c2df4a1a69a5713c5cfa6d4"
 
 url@^0.11.0:
   version "0.11.0"
