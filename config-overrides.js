@@ -18,6 +18,6 @@ module.exports = function override(config, env) {
         '@card-actions-background': '#f5f8fa',
       }
     },
-    new RegExp(`${path.sep}src${path.sep}`),
+    /src/,
   )(config, env);
 };
