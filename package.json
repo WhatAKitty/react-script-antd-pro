@@ -44,7 +44,7 @@
     "prettier": "^1.10.2",
     "react-app-rewire-less-modules": "https://github.com/WhatAKitty/react-app-rewire-less-modules",
     "react-app-rewired": "^1.4.0",
-    "react-fetch-mock": "^0.4.2",
+    "react-fetch-mock": "^0.6.1",
     "rollbar": "^2.3.7"
   }
 }
